@@ -1,5 +1,7 @@
 package gti310.tp3.parser;
 
+import java.util.LinkedList;
+
 /**
  * 
  * Class contenant les lignes(details) du fichier 
@@ -9,36 +11,36 @@ package gti310.tp3.parser;
 public class MazeLine {
 	
 	/** Variables de class */
-	private String source;
-	private String destination;
-	private String weight;
+	private int source;
+	private int destination;
+	private int weight;
 	
 	/** Méthode servant à initialiser un object MazeLine */
 	MazeLine(String source, String destination, String weight){
-		this.source = source;
-		this.destination = destination;
-		this.weight = weight;
+		this.source = Integer.parseInt(source);
+		this.destination = Integer.parseInt(destination);
+		this.weight = Integer.parseInt(weight);
 	}
 
 	/** Mutateurs & accesseur */
-	public String getSource() {
+	public int getSource() {
 		return source;
 	}
-	public void setSource(String source) {
+	public void setSource(int source) {
 		this.source = source;
 	}
 
-	public String getDestination() {
+	public int getDestination() {
 		return destination;
 	}
-	public void setDestination(String destination) {
+	public void setDestination(int destination) {
 		this.destination = destination;
 	}
 
-	public String getweight() {
+	public int getweight() {
 		return weight;
 	}
-	public void setweight(String weight) {
+	public void setweight(int weight) {
 		this.weight = weight;
 	}
 }

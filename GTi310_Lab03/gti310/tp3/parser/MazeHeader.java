@@ -9,27 +9,27 @@ package gti310.tp3.parser;
 public class MazeHeader {
 	
 	/** Variables de class */
-	private String nbSommet;
-	private String sommetDeDépart;
+	private int nbSommet;
+	private int sommetDeDépart;
 	
 	/** Méthode servant à initialiser un object MazeHeader */
 	public MazeHeader(String nbSommet, String sommetDeDépart) {
-		this.nbSommet = nbSommet;
-		this.sommetDeDépart = sommetDeDépart;
+		this.nbSommet = Integer.parseInt(nbSommet);
+		this.sommetDeDépart = Integer.parseInt(sommetDeDépart);
 	}
 
 	/** Mutateurs & accesseur */
-	public String getNbSommet() {
+	public int getNbSommet() {
 		return nbSommet;
 	}
-	public void setNbSommet(String nbSommet) {
+	public void setNbSommet(int nbSommet) {
 		this.nbSommet = nbSommet;
 	}
 
-	public String getSommetDeDépart() {
+	public int getSommetDeDépart() {
 		return sommetDeDépart;
 	}
-	public void setSommetDeDépart(String sommetDeDépart) {
+	public void setSommetDeDépart(int sommetDeDépart) {
 		this.sommetDeDépart = sommetDeDépart;
 	}	
 }
