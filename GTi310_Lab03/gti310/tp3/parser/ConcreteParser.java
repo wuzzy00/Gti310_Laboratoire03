@@ -57,9 +57,8 @@ public class ConcreteParser implements Parser{
 			}else{
 				if(tmpSplit.length != 3)
 					goodLines = false;
-				else {
 				maze.addMazeLine(tmpSplit[0], tmpSplit[1], tmpSplit[2]);
-				}
+				
 			}
 
 			String cEOF = (String) cLines.toArray()[cLines.size()-1];

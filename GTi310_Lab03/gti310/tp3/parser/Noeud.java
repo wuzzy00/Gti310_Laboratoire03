@@ -16,7 +16,7 @@ public class Noeud {
 		this.nom = nom;
 	}
 
-	public void ajouternoeud(Noeud noeud , int distance) {
+	public void ajouternoeudadj(Noeud noeud , int distance) {
 		noeudadjs.put(noeud, distance);
 	}
 

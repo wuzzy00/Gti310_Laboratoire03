@@ -17,35 +17,62 @@ public class Dijkstra implements Solver{
 	@Override
 	public Object solve(Maze input) {
 		ArrayList<MazeLine> mazeLines = input.getMazeLine();
-		String depart = input.getSomDepart();
 		ArrayList<Noeud> noeuds = creerListNoeud(mazeLines);
 		for (Noeud noeud : noeuds) {
-			System.out.println("noeuds : " + noeud);
+			System.out.println("noeuds : " + noeud.getNom());
+		}
+		ArrayList<String> solved = solveList(noeuds, new Noeud(input.getSomDepart()));
+		for (String noeud : solved) {
+			System.out.print(" " + noeud);
 		}
 		return null;
-	}
-	
-	
-	public static void initializeSource(Maze maze) {
-		
 	}
 	
 	
 	
 	private static ArrayList<Noeud> creerListNoeud(ArrayList<MazeLine> mazeLine) {
 		ArrayList<Noeud> listnoeud = new ArrayList<>();
+		Noeud noeudSource = null;
+		Noeud noeudDestination = null;
+		boolean noeudSourceExist;
+		boolean noeudDestinationExist;
 		for(int i = 0 ; i < mazeLine.size() ; i++) {
 			MazeLine line = mazeLine.get(i);
-			if(!listnoeud.contains(line.getSource())) {
+			if (listnoeud.isEmpty()) {
 				listnoeud.add(new Noeud(line.getSource()));
-			}else if(!listnoeud.contains(line.getDestination())){
 				listnoeud.add(new Noeud(line.getDestination()));
+				listnoeud.get(i).ajouternoeudadj(listnoeud.get(i+1), line.getweight());
+			}else{
+				noeudSourceExist = false;
+				noeudDestinationExist = false;
+				for (Noeud _nom: listnoeud ) {
+					if (_nom.getNom().equals(line.getSource())) {
+						noeudSource = _nom;
+						noeudSourceExist = true;
+					}
+					if (_nom.getNom().equals(line.getDestination())) {
+						noeudDestination = _nom;
+						noeudDestinationExist = true;
+					}
+				}
+				if (!noeudDestinationExist) {
+					noeudDestination = new Noeud(line.getDestination());
+					listnoeud.add(noeudDestination);
+				}
+				if (!noeudSourceExist) {
+					noeudSource = new Noeud(line.getSource());
+					listnoeud.add(noeudSource);
+				}
+				
+				
+				if(noeudSource != null && noeudDestination != null) {
+					noeudSource.ajouternoeudadj(noeudDestination, line.getweight());
+				}else {
+				System.err.println("noeud non existant");
+				}
 			}
-			Noeud tmp1 = listnoeud.get(Integer.parseInt(line.getSource()) - 1);
-			Noeud tmp2 = listnoeud.get(Integer.parseInt(line.getDestination()) - 1);
-			tmp1.ajouternoeud(tmp2, line.getweight());
 		}
-		return null;
+		return listnoeud;
 	}
 	
 	private ArrayList<String> solveList(ArrayList<Noeud> noeuds , Noeud debut ){
