@@ -22,7 +22,7 @@ public class Maze {
 	}
 	
 	/** Méthode servant à ajouter des lignes de mazeLine*/
-	public void addMazeLine(String source, String destination, String weight){
+	public void addMazeLine(String source, String destination, float weight){
 		mazeLine.add(new MazeLine(source, destination, weight));
 	}
 

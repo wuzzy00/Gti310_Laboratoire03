@@ -3,6 +3,7 @@ package gti310.tp3;
 import java.io.IOException;
 
 import gti310.tp3.parser.ConcreteParser;
+import gti310.tp3.solver.FindAllPathAlgo;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -22,12 +23,14 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\UnrealNetworksSolver\\UnrealNetworksSolver\\Musee.txt" ;
+		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\Musee.txt" ;
 		
-		ConcreteParser fp = new ConcreteParser();
-		Object obj;
+		ConcreteParser cp = new ConcreteParser();
+		FindAllPathAlgo fapa = new FindAllPathAlgo();
 		try {
-			obj  = fp.parse(cc);
+			cp.parse(cc);
+			fapa.setGraphe(cp.getMaze());
+			fapa.showGraphe();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

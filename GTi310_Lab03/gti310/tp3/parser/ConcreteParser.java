@@ -18,7 +18,7 @@ public class ConcreteParser implements Parser{
 
 	/** Variable de classes */
 	private Maze maze = null;
-	
+
 	@SuppressWarnings("resource")
 	public Object parse(String filename) throws IOException {
 		FileReader fRead = new FileReader(filename);
@@ -32,21 +32,26 @@ public class ConcreteParser implements Parser{
 		/* Read the file and save for analysis */
 		while ((singleLine = buffRead.readLine()) != null)
 			cLines.add(singleLine);					
-		
+
 		/* analyse the file and return null if validation fails*/
 		String nbSum=null;
 		for(int j=0; j<cLines.size()-1; j++){
 			String tmp = (String) cLines.toArray()[j];
 			String[] tmpSplit = tmp.split("\\s+");
-
+			
+			//Verifier la fin du fichier
+			String cEOF = (String) cLines.toArray()[cLines.size()-1];
+			if( cEOF.trim().length() > 1 ){
+				goodEOF = false;
+			
 			//Vérifier le header
-			if(j<2){
+			}else if(j<2){
 				if(tmpSplit.length > 2)
 					goodHeader = false;
 
 				if(j==0){
 					nbSum = tmpSplit[0];
-					
+
 					try {
 						Integer.parseInt(nbSum);
 					} catch (NumberFormatException e) {
@@ -54,16 +59,16 @@ public class ConcreteParser implements Parser{
 					}
 				}else
 					maze = new Maze(nbSum, tmpSplit[0]);
-			}else{
-				if(tmpSplit.length != 3)
+			}else{//Verifier le data
+				if(tmpSplit.length != 3){
 					goodLines = false;
-				maze.addMazeLine(tmpSplit[0], tmpSplit[1], tmpSplit[2]);
+				}else{
+					maze.addMazeLine(tmpSplit[0], tmpSplit[1], (float)Double.parseDouble(tmpSplit[2]));
+				}
+					
 			}
 
-			String cEOF = (String) cLines.toArray()[cLines.size()-1];
-
-			if( cEOF.trim().length() > 1 )
-				goodEOF = false;
+			
 
 			if(!goodHeader || !goodLines || !goodEOF){
 				System.out.println("ConcreteParser.parse parts good;\nHeader : " + goodHeader + "\nLines: " + goodLines + "\nEOF: " + goodEOF);
