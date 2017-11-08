@@ -11,29 +11,29 @@ import java.util.LinkedList;
 public class MazeLine {
 	
 	/** Variables de class */
-	private int source;
-	private int destination;
+	private String source;
+	private String destination;
 	private int weight;
 	
 	/** Méthode servant à initialiser un object MazeLine */
 	MazeLine(String source, String destination, String weight){
-		this.source = Integer.parseInt(source);
-		this.destination = Integer.parseInt(destination);
+		this.source = source;
+		this.destination = destination;
 		this.weight = Integer.parseInt(weight);
 	}
 
 	/** Mutateurs & accesseur */
-	public int getSource() {
+	public String getSource() {
 		return source;
 	}
-	public void setSource(int source) {
+	public void setSource(String source) {
 		this.source = source;
 	}
 
-	public int getDestination() {
+	public String getDestination() {
 		return destination;
 	}
-	public void setDestination(int destination) {
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 

@@ -2,6 +2,8 @@ package gti310.tp3.parser;
 
 import java.util.ArrayList;
 
+
+
 /**
  * 
  * Class servant à récupérer un fichier text le transformer ligne par ligne
@@ -14,9 +16,11 @@ public class Maze {
 	/** Variable de class */
 	private MazeHeader mazeHeader;
 	private ArrayList<MazeLine> mazeLine;
+	private String somDepart;
 	
 	/** Création d'un object Maze*/
 	Maze(String nbSommet, String somDepart){
+		this.somDepart = somDepart;
 		mazeHeader = new MazeHeader(nbSommet, somDepart);
 		mazeLine = new ArrayList<MazeLine>();
 	}
@@ -40,5 +44,14 @@ public class Maze {
 	public void setMazeLine(ArrayList<MazeLine> mazeLine) {
 		this.mazeLine = mazeLine;
 	}
+
+	public String getSomDepart() {
+		return somDepart;
+	}
+
+	public void setSomDepart(String somDepart) {
+		this.somDepart = somDepart;
+	}
+	
 	
 }

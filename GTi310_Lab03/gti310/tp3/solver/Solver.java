@@ -1,5 +1,7 @@
 package gti310.tp3.solver;
 
+import gti310.tp3.parser.Maze;
+
 /**
  * The Solver interface presents a method definition to complete a given task.
  * The Solver uses the output produced by a Parser object and returns an
@@ -30,5 +32,7 @@ public interface Solver<E,T> {
 	 * @param input The object required to complete the task.
 	 * @return A user defined object, or null if something went wrong.
 	 */
-	T solve(E input);
+	T solve(Maze input);
+
+
 }
