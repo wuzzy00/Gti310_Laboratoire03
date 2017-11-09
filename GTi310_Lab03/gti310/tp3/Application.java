@@ -3,7 +3,7 @@ package gti310.tp3;
 import java.io.IOException;
 
 import gti310.tp3.parser.ConcreteParser;
-import gti310.tp3.solver.FindAllPathAlgo;
+import gti310.tp3.solver.Graphe;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -26,7 +26,7 @@ public class Application {
 		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\Musee.txt" ;
 		
 		ConcreteParser cp = new ConcreteParser();
-		FindAllPathAlgo fapa = new FindAllPathAlgo();
+		Graphe fapa = new Graphe();
 		try {
 			cp.parse(cc);
 			fapa.setGraphe(cp.getMaze());

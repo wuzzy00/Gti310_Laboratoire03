@@ -6,7 +6,7 @@ import gti310.tp3.parser.Sommet;
 
 import java.util.ArrayList;
 
-public class FindAllPathAlgo {
+public class Graphe {
 
 	public ArrayList<Sommet> graphe = new ArrayList<Sommet>(); 
 	public boolean initGraphe = true;
