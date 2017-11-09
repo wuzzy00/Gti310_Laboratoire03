@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Sommet {
 
 	private String nom; //pour le nom du sommet... Actuel
-	private ArrayList<Arrete> list = new ArrayList<Arrete>(); //Liste des arrete partant de courant à x
+	private ArrayList<Arrete> listArrete = new ArrayList<Arrete>(); //Liste des arrete partant de courant à x
 	private boolean visite;//S'il a ete visite
 	
 	public Sommet(String nom){
 		this.nom = nom;
-		list.clear();//LA liste des arretes doit etre vide
+		listArrete.clear();//LA liste des arretes doit etre vide
 		visite = false;
 	}
 	
 	/** Methode qui sert à ajouter une arrete à un noeud */
 	public void ajouterArrete(Arrete arrete){
-		list.add(arrete);
+		listArrete.add(arrete);
 	}
 
 	/** Getters and setter*/
@@ -34,11 +34,11 @@ public class Sommet {
 		this.visite = visite;
 	}
 
-	public ArrayList<Arrete> getList() {
-		return list;
+	public ArrayList<Arrete> getListArrete() {
+		return listArrete;
 	}
-	public void setList(ArrayList<Arrete> list) {
-		this.list = list;
+	public void setListArrete(ArrayList<Arrete> listArrete) {
+		this.listArrete = listArrete;
 	}
 	
 	

@@ -11,7 +11,7 @@ public class FindAllPathAlgo {
 	public ArrayList<Sommet> graphe = new ArrayList<Sommet>(); 
 	public boolean initGraphe = true;
 
-	/** Méthode qui sert à créer mon Graphe */
+	/** Méthode qui sert à créer mon Graphe Avec l'objet Maze */
 	public void setGraphe(Maze maze){
 
 		Sommet tmpSommet = null;
@@ -58,18 +58,30 @@ public class FindAllPathAlgo {
 		}
 	}
 
-	/** Méthode Servant a afficher le graphe(visuel pour tester)*/
+	public void wtv(){
+		
+	}
+	
+	/** Méthode Servant a afficher le graphe(visuel pour tester) */
 	public void showGraphe(){
 		String chaine = "";
 
 		for(int i =0; i<graphe.size(); i++){
 			chaine += "Origine : " + graphe.get(i).getNom();
-			for(int j = 0; j<graphe.get(i).getList().size(); j++){
-				chaine += " Poids (" + graphe.get(i).getList().get(j).getCout() + ") Destination :" + graphe.get(i).getList().get(j).getSommetArrive().getNom() + "\n";
+			for(int j = 0; j<graphe.get(i).getListArrete().size(); j++){
+				chaine += " Poids (" + graphe.get(i).getListArrete().get(j).getCout() + ") Destination :" + graphe.get(i).getListArrete().get(j).getSommetArrive().getNom() + "\n";
 			}
 		}
 
 		System.out.println(chaine);
+	}
+
+	/** Getters and setters */
+	public ArrayList<Sommet> getGraphe() {
+		return graphe;
+	}
+	public void setGraphe(ArrayList<Sommet> graphe) {
+		this.graphe = graphe;
 	}
 
 	
