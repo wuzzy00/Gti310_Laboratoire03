@@ -1,6 +1,8 @@
 package gti310.tp3.parser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 
@@ -17,12 +19,16 @@ public class Maze {
 	private MazeHeader mazeHeader;
 	private ArrayList<MazeLine> mazeLine;
 	private String somDepart;
+	private Set<Noeud> noeuds;
 	
+	
+
 	/** Création d'un object Maze*/
 	Maze(String nbSommet, String somDepart){
 		this.somDepart = somDepart;
 		mazeHeader = new MazeHeader(nbSommet, somDepart);
 		mazeLine = new ArrayList<MazeLine>();
+		noeuds = new HashSet<>();
 	}
 	
 	/** Méthode servant à ajouter des lignes de mazeLine*/
@@ -52,6 +58,15 @@ public class Maze {
 	public void setSomDepart(String somDepart) {
 		this.somDepart = somDepart;
 	}
+	public void ajouternoeud(Noeud noeud) {
+		this.noeuds.add(noeud);
+	}
 	
-	
+	public Set<Noeud> getNoeuds() {
+		return noeuds;
+	}
+
+	public void setNoeuds(Set<Noeud> noeuds) {
+		this.noeuds = noeuds;
+	}
 }

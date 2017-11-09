@@ -1,8 +1,10 @@
 package gti310.tp3.solver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -17,13 +19,17 @@ public class Dijkstra implements Solver{
 	@Override
 	public Object solve(Maze input) {
 		ArrayList<MazeLine> mazeLines = input.getMazeLine();
-		ArrayList<Noeud> noeuds = creerListNoeud(mazeLines);
-		for (Noeud noeud : noeuds) {
-			System.out.println("noeuds : " + noeud.getNom());
+		ArrayList<Noeud> tmp = creerListNoeud(mazeLines);
+		for (Noeud noeud : tmp) {
+			input.ajouternoeud(noeud);
 		}
-		ArrayList<String> solved = solveList(noeuds, new Noeud(input.getSomDepart()));
-		for (String noeud : solved) {
-			System.out.print(" " + noeud);
+		
+		Set<Noeud> solved = solveList(new Noeud(input.getSomDepart()));
+		
+		List<Noeud> shortfrom1 = Arrays.asList(new Noeud(input.getSomDepart()));
+		
+		for (Noeud noeud : shortfrom1) {
+			System.out.println(" noeud : " + noeud.getNom());
 		}
 		return null;
 	}
@@ -66,6 +72,8 @@ public class Dijkstra implements Solver{
 				
 				
 				if(noeudSource != null && noeudDestination != null) {
+					System.out.println("noeud :"+ noeudSource.getNom() +" dest :" +noeudDestination.getNom() +" cout " + line.getweight() );
+					System.out.println("noeud :"+ line.getSource() +" dest :" + line.getDestination() +" cout " + line.getweight() );
 					noeudSource.ajouternoeudadj(noeudDestination, line.getweight());
 				}else {
 				System.err.println("noeud non existant");
@@ -75,7 +83,7 @@ public class Dijkstra implements Solver{
 		return listnoeud;
 	}
 	
-	private ArrayList<String> solveList(ArrayList<Noeud> noeuds , Noeud debut ){
+	private Set<Noeud> solveList(Noeud debut){
 		debut.setDistance(0);
 		
 		Set<Noeud> noeudEvaluer = new HashSet<>();
@@ -96,18 +104,17 @@ public class Dijkstra implements Solver{
 				}
 			}
 			noeudEvaluer.add(noeud);
-			
 		}
-		return ordonerdonner(noeudEvaluer);
+		return noeudEvaluer;
 	}
 //getlowestdistance
 	private static Noeud obtenirpluspetitedistance(Set < Noeud > noeudNonEvaluer){
 		Noeud pluspetit = null;
-		int lowestDistance = Integer.MAX_VALUE;
+		int plusPetiteDisatance = Integer.MAX_VALUE;
 		for (Noeud noeud: noeudNonEvaluer) {
 			int distance = noeud.getDistance();
-			if (distance < lowestDistance) {
-				lowestDistance = distance;
+			if (distance < plusPetiteDisatance) {
+				plusPetiteDisatance = distance;
 				pluspetit = noeud;
 			}
 		}
@@ -117,15 +124,15 @@ public class Dijkstra implements Solver{
 	
 	private static void calculerDistanceMinimum(Noeud noeud1,
 			  Integer coutadj, Noeud noeud2) {
-			    Integer distanceSource = noeud2.getDistance();
+			  	Integer distanceSource = noeud2.getDistance();
 			    if (distanceSource + coutadj < noeud1.getDistance()) {
 			        noeud1.setDistance(distanceSource + coutadj);
-			        LinkedList<Noeud> pluspletitedistance = new LinkedList<>();
+			        LinkedList<Noeud> pluspletitedistance = new LinkedList<>(noeud2.getPluspetitchemin());
 			        pluspletitedistance.add(noeud2);
 			        noeud1.setPluspetitchemin(pluspletitedistance);
 			    }
 			}
-	private ArrayList<String> ordonerdonner(Set<Noeud> noeuds){
+	private ArrayList<String> ordonerDonnee(Set<Noeud> noeuds){
 		ArrayList<String> cheminOrdoner = new ArrayList<>();
 		for(Noeud noeud:noeuds) {
 			cheminOrdoner.add(noeud.getNom());
