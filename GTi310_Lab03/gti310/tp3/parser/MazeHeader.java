@@ -10,12 +10,12 @@ public class MazeHeader {
 	
 	/** Variables de class */
 	private int nbSommet;
-	private int sommetDeDépart;
+	private String sommetDeDépart;
 	
 	/** Méthode servant à initialiser un object MazeHeader */
 	public MazeHeader(String nbSommet, String sommetDeDépart) {
 		this.nbSommet = Integer.parseInt(nbSommet);
-		this.sommetDeDépart = Integer.parseInt(sommetDeDépart);
+		this.sommetDeDépart = sommetDeDépart;
 	}
 
 	/** Mutateurs & accesseur */
@@ -26,10 +26,10 @@ public class MazeHeader {
 		this.nbSommet = nbSommet;
 	}
 
-	public int getSommetDeDépart() {
+	public String getSommetDeDépart() {
 		return sommetDeDépart;
 	}
-	public void setSommetDeDépart(int sommetDeDépart) {
+	public void setSommetDeDépart(String sommetDeDépart) {
 		this.sommetDeDépart = sommetDeDépart;
 	}	
 }

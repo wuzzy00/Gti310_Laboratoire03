@@ -23,7 +23,7 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\Musee.txt" ;
+		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\PetitMusee.txt" ;
 		
 		ConcreteParser cp = new ConcreteParser();
 		Graphe fapa = new Graphe();
