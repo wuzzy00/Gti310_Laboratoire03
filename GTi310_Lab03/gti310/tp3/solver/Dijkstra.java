@@ -16,11 +16,23 @@ public class Dijkstra implements Solver{
 	@Override
 	public Object solve(Maze input) {
 		ArrayList<MazeLine> mazeLines = input.getMazeLine();
-		Graph graph = CreerGraph(mazeLines);
+		Graph graph = creerGraph(mazeLines);
 		remplirGraph(graph , mazeLines);
-		rechercheEnProfondeur(Integer.parseInt(input.getSomDepart()), graph);
+		System.out.println(input.getSomDepart());
+		//rechercheEnProfondeur(Integer.parseInt(input.getSomDepart()), graph);
+		afficherTousLesNoueudAdj(graph);
 		return null;
 		
+	}
+
+	private void afficherTousLesNoueudAdj(Graph graph) {
+		LinkedList<Integer>[] list = graph.getAdjacent();
+		for(int i = 0; i<list.length ;i++ ) {
+			System.out.println("\n Sommet : " + (1+i)  );
+			for (Integer list1 :  list[i]) {
+				System.out.print( "-->" + list1);
+			}
+		}
 	}
 
 	private void remplirGraph(Graph graph, ArrayList<MazeLine> mazeLines) {
@@ -31,13 +43,13 @@ public class Dijkstra implements Solver{
 		}
 	}
 
-	private static Graph CreerGraph(ArrayList<MazeLine> mazeLines) {
-		int nbSommet = ObtenirNombreSommet(mazeLines);
+	private static Graph creerGraph(ArrayList<MazeLine> mazeLines) {
+		int nbSommet = obtenirNombreSommet(mazeLines);
 		System.out.println(nbSommet);
 		return new Graph(nbSommet);
 	}
 
-	private static int ObtenirNombreSommet(ArrayList<MazeLine> mazeLines) {
+	private static int obtenirNombreSommet(ArrayList<MazeLine> mazeLines) {
 		int nbSommet = 0;
 		ArrayList<Integer> sommet = new ArrayList<>();
 		for (MazeLine mazeLine : mazeLines) {
@@ -56,6 +68,7 @@ public class Dijkstra implements Solver{
 	}
 	private void DFSUtil(int v,boolean visiter[], Graph graph){
 	        // Mark the current node as visited and print it
+			
 	        visiter[v] = true;
 	        System.out.print((v+1)+" ");
 	        LinkedList<Integer>[] adjacent = graph.getAdjacent();

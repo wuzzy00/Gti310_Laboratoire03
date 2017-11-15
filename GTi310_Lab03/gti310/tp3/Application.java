@@ -23,7 +23,7 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String cc = "C:\\Users\\julien\\eclipse-workspace\\Media\\Musee.txt" ;
+		String cc = "C:\\Users\\julien labrosse\\eclipse-workspace\\Media\\Musee.txt" ;
 		
 		ConcreteParser fp = new ConcreteParser();
 		Object obj;
