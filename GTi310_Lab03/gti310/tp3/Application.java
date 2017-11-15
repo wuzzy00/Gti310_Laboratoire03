@@ -3,6 +3,7 @@ package gti310.tp3;
 import java.io.IOException;
 
 import gti310.tp3.parser.ConcreteParser;
+import gti310.tp3.solver.Factorial;
 import gti310.tp3.solver.Graphe;
 
 /**
@@ -23,16 +24,29 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\PetitMusee.txt" ;
-		
+		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\Musee.txt" ;
+
 		ConcreteParser cp = new ConcreteParser();
 		Graphe fapa = new Graphe();
 		try {
 			cp.parse(cc);
 			fapa.setGraphe(cp.getMaze());
-			fapa.showGraphe();
+			//fapa.showGraphe();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		/*int[] bb = new int[3];
+		int fact = Factorial.factorial(bb.length);
+		
+		for(int i =0; i<bb.length; i ++)//Not needed
+			bb[0] = 0;
+
+		for(int i =0; i < fact; i++){
+			bb[i%bb.length] += 1;
+			System.out.println(bb[0] + " , " + bb[1] + " , " + bb[2] );
+
+		}*/
+
 	}
 }

@@ -68,8 +68,6 @@ public class ConcreteParser implements Parser{
 					
 			}
 
-			
-
 			if(!goodHeader || !goodLines || !goodEOF){
 				System.out.println("ConcreteParser.parse parts good;\nHeader : " + goodHeader + "\nLines: " + goodLines + "\nEOF: " + goodEOF);
 				return null;
