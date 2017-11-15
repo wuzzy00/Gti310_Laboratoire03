@@ -70,7 +70,7 @@ public class Dijkstra implements Solver{
 	        // Mark the current node as visited and print it
 			
 	        visiter[Integer.parseInt(v)] = true;
-	        System.out.print((Integer.parseInt(v)+1)+" ");
+	        System.out.print((v)+" ");
 	        LinkedList<String>[] adjacent = graph.getAdjacent();
 	        // Recur for all the vertices adjacent to this vertex
 	        Iterator<String> i = adjacent[Integer.parseInt(v) -1].listIterator();
