@@ -42,6 +42,16 @@ public class Dijkstra implements Solver{
 			
 		}
 	}
+	
+	private int getSommetIndex(Graph graph , int sommet) {
+		LinkedList<Integer>[] list = graph.getAdjacent();
+		for(int i = 0; i<list.length ;i++ ) {
+			if(list[i].contains(sommet)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
 	private static Graph creerGraph(ArrayList<MazeLine> mazeLines) {
 		int nbSommet = obtenirNombreSommet(mazeLines);
