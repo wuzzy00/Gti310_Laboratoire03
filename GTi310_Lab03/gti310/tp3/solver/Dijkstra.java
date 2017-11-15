@@ -19,17 +19,17 @@ public class Dijkstra implements Solver{
 		Graph graph = creerGraph(mazeLines);
 		remplirGraph(graph , mazeLines);
 		System.out.println(input.getSomDepart());
-		//rechercheEnProfondeur(Integer.parseInt(input.getSomDepart()), graph);
+		rechercheEnProfondeur(input.getSomDepart(), graph);
 		afficherTousLesNoueudAdj(graph);
 		return null;
 		
 	}
 
 	private void afficherTousLesNoueudAdj(Graph graph) {
-		LinkedList<Integer>[] list = graph.getAdjacent();
+		LinkedList<String>[] list = graph.getAdjacent();
 		for(int i = 0; i<list.length ;i++ ) {
 			System.out.println("\n Sommet : " + (1+i)  );
-			for (Integer list1 :  list[i]) {
+			for (String list1 :  list[i]) {
 				System.out.print( "-->" + list1);
 			}
 		}
@@ -37,20 +37,10 @@ public class Dijkstra implements Solver{
 
 	private void remplirGraph(Graph graph, ArrayList<MazeLine> mazeLines) {
 		for (MazeLine mazeLine : mazeLines) {
-			graph.AjouterArrete(Integer.parseInt(mazeLine.getSource()),
-					Integer.parseInt(mazeLine.getDestination()));
+			graph.AjouterArrete(mazeLine.getSource(),
+					mazeLine.getDestination());
 			
 		}
-	}
-	
-	private int getSommetIndex(Graph graph , int sommet) {
-		LinkedList<Integer>[] list = graph.getAdjacent();
-		for(int i = 0; i<list.length ;i++ ) {
-			if(list[i].contains(sommet)) {
-				return i;
-			}
-		}
-		return -1;
 	}
 
 	private static Graph creerGraph(ArrayList<MazeLine> mazeLines) {
@@ -70,24 +60,24 @@ public class Dijkstra implements Solver{
 		}
 		return nbSommet;
 	}
-	private void rechercheEnProfondeur(int sommetDepart , Graph graph) {
+	private void rechercheEnProfondeur(String sommetDepart , Graph graph) {
 		boolean visiter[] = new boolean[graph.getNbSommet()+1];
 		DFSUtil(sommetDepart ,visiter , graph );
 		
 		
 	}
-	private void DFSUtil(int v,boolean visiter[], Graph graph){
+	private void DFSUtil(String v,boolean visiter[], Graph graph){
 	        // Mark the current node as visited and print it
 			
-	        visiter[v] = true;
-	        System.out.print((v+1)+" ");
-	        LinkedList<Integer>[] adjacent = graph.getAdjacent();
+	        visiter[Integer.parseInt(v)] = true;
+	        System.out.print((Integer.parseInt(v)+1)+" ");
+	        LinkedList<String>[] adjacent = graph.getAdjacent();
 	        // Recur for all the vertices adjacent to this vertex
-	        Iterator<Integer> i = adjacent[v].listIterator();
+	        Iterator<String> i = adjacent[Integer.parseInt(v) -1].listIterator();
 	        while (i.hasNext())
 	        {
-	            int n = i.next();
-	            if (!visiter[n])
+	            String n = i.next();
+	            if (!visiter[Integer.parseInt(n)])
 	                DFSUtil(n, visiter,graph);
 	        }
 	    }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Graph {
 	private int nbSommet;
 	
-	private static LinkedList<Integer> adjacent[];
+	private static LinkedList<String> adjacent[];
 	
 	
 	public Graph(int nbSommet) {
@@ -15,8 +15,8 @@ public class Graph {
 			adjacent[i] = new LinkedList();
 		
 	}
-	public void AjouterArrete(int Sommet1 ,int Sommet2) {
-		adjacent[Sommet1 - 1].add(Sommet2 - 1);
+	public void AjouterArrete(String Sommet1 ,String Sommet2) {
+		adjacent[Integer.parseInt(Sommet1) - 1].add(Sommet2);
 	}
 	
 	public int getNbSommet() {
@@ -25,10 +25,10 @@ public class Graph {
 	public void setNbSommet(int nbSommet) {
 		this.nbSommet = nbSommet;
 	}
-	public static LinkedList<Integer>[] getAdjacent() {
+	public static LinkedList<String>[] getAdjacent() {
 		return adjacent;
 	}
-	public static void setAdjacent(LinkedList<Integer>[] adjacent) {
+	public static void setAdjacent(LinkedList<String>[] adjacent) {
 		Graph.adjacent = adjacent;
 	}
 	private int getSommetIndex(int sommet) {
