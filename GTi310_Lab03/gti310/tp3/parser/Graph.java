@@ -31,5 +31,14 @@ public class Graph {
 	public static void setAdjacent(LinkedList<Integer>[] adjacent) {
 		Graph.adjacent = adjacent;
 	}
+	private int getSommetIndex(int sommet) {
+		
+		for(int i = 0; i<adjacent.length ;i++ ) {
+			if(adjacent[i].contains(sommet)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 }
