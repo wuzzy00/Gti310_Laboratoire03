@@ -21,6 +21,9 @@ public class Graphe {
 
 	private ArrayList<Sommet>  sommetVisite       = new ArrayList<Sommet>(); //Array contenant le Chemin Emprunter
 	//private ArrayList<Boolean> completementVisite = new ArrayList<Boolean>();//Array mindiquant quand un sommet est completement visite
+	public static String sommetDeDepart = "";
+	public boolean retournerAuDepart = false;
+	public int indexFinDeVisite = -1;//Variable qui m'indique à partir de quand je commence à retourner au départ.
 
 	/** Méthode qui sert à créer mon Graphe Avec l'objet Maze */
 	public void setGraphe(Maze maze){
@@ -38,7 +41,7 @@ public class Graphe {
 			sommetArrive = maze.getMazeLine().get(i).getDestination();
 
 			//Garder tout les couts à 0 pour permettre de visiter tout les noeuds
-			cout = maze.getMazeLine().get(i).getweight();
+			cout = 1;//maze.getMazeLine().get(i).getweight();
 
 			tmpSommet = new Sommet(sommetDepart);
 			tmpArrete = new Arrete(cout, sommetArrive/*new Sommet(sommetArrive)*/);
@@ -94,6 +97,7 @@ public class Graphe {
 		//if(!cheminAAjouter.trim().isEmpty())//Ajouter un nouveau chemin a ma liste si celui si n'est pas vide
 		//addDataInResultArray(cheminAAjouter);
 		//}
+		sommetDeDepart = depart.getNom();
 		explorer(depart);
 		//Afficher tout les chemins que j'ai
 		//showResultats();
@@ -110,40 +114,60 @@ public class Graphe {
 		//for(int i = 0; i<graphe.size(); i++)
 		//System.out.println(graphe.get(i).getNom() + " :: " + graphe.get(i).getListArrete().size());
 	}
-	
+
 	/***/
 	public void explorer(Sommet s){
 		Arrete aDestination;
 		int index,idxSource;
 		Sommet tmpSommet;
-		boolean notInArray;
-		
-		//for(int i =0; i<sommetVisite.size(); i++){
-			//if(sommetVisite.g)
-		//}
-		
+		//boolean goBack = false;
+
+		//Augmenter le nbSommetPArcouru seulement si on ne parcour pas le mëme sommet 2 fois
 		if(!sommetVisite.contains(s)){
 			nbSommetParcouru++;
-			
 		}
+
+		sommetVisite.add(s);//Ne pas deplacer
+		//System.out.print(s.getNom() + " ");
+
+		//Fixer la chaine à partir de la prochaine rentrer
+		if(nbSommetParcouru == graphe.size() && retournerAuDepart)
+			fixExplorer(s.getNom());
+
+		//Cherche le noeud de depart
+		if(nbSommetParcouru == graphe.size() && retournerAuDepart==false){
+			indexFinDeVisite = sommetVisite.size();
+			retournerAuDepart = true;
+
+			//System.out.println( " |" +indexFinDeVisite + "| ");
+		}
+
+
+
+
+
+
+		//Condition d'arrêt
+		if(nbSommetParcouru == graphe.size() && nbSommetParcouru>1 && s.getNom().equalsIgnoreCase(sommetDeDepart)){
 			
-		sommetVisite.add(s);
-		System.out.print(s.getNom() + " ");
-		
-		if(nbSommetParcouru == graphe.size())
+			for(int i =0; i<sommetVisite.size(); i++){
+				System.out.print(sommetVisite.get(i).getNom() + " ");
+			}
 			System.out.println();
-		
-		
-		index = s.plusPetitPoids();// l'index d'arrete à prendre
+		}
+		//System.out.println();
+
+
+		index = s.plusPetitPoids(retournerAuDepart);// l'index d'arrete à prendre
 		String NomSomm = s.getListArrete().get(index).getSommetArrive();//Nom du sommet d'arriver à prendre
-		
+
 		idxSource = getIndexGrapheSommetFromName(s.getNom());
 		//idxDestination = getIndexGrapheSommetFromName(NomSomm);//l'index dans le graphe à partir du nom de sommet
-		
+
 		//Ajuster le sens courant
 		aDestination = graphe.get(idxSource).getListArrete().get(index);
 		graphe.get(idxSource).setCoutUnirectionnel(aDestination);
-		
+
 		//Ajuster le sens inverse
 		idxSource = getIndexGrapheSommetFromName(NomSomm);
 		int nInd = -1;
@@ -151,19 +175,17 @@ public class Graphe {
 			if(graphe.get(idxSource).getListArrete().get(i).getSommetArrive().equalsIgnoreCase(s.getNom()))
 				nInd = i;
 		}
-		
-		
-		//idxDestination = getIndexGrapheSommetFromName(s.getNom());
-		
+
+		//idxDestination = getIndexGrapheSommetFromName(s.getNom());		
 		if(idxSource != -1 && nInd != -1){
 			aDestination = graphe.get(idxSource).getListArrete().get(nInd);
 			graphe.get(idxSource).setCoutUnirectionnel(aDestination);
 		}
-		
+
 		tmpSommet = graphe.get(idxSource);
 		s = tmpSommet;
 		explorer(s);
-		
+
 	}
 
 	//sommetVisite  completementVisite
@@ -265,6 +287,50 @@ public class Graphe {
 	}
 	 */
 
+	/** Arranger la String de data quand on veut retourner au point de depart */
+	public void fixExplorer(String nom){
+
+	    
+		/*for(int i =0; i<sommetVisite.size(); i++)
+		System.out.print(sommetVisite.get(i).getNom() + " ");
+		System.out.println();*/
+		//System.out.println(" |"+indexFinDeVisite+"| " + sommetVisite.get(indexFinDeVisite-1).getNom() + " : " + nom);
+
+		boolean premierIndex = true;
+		int index = -1;
+		int cycleDeSortie = 0;
+		for(int i = indexFinDeVisite; i<sommetVisite.size(); i++){
+			if(sommetVisite.get(i).getNom().equalsIgnoreCase(nom)){
+				
+				if(premierIndex){
+					index = i;
+					premierIndex = false;
+				}
+				
+				cycleDeSortie++;
+			}
+		}
+
+		if(cycleDeSortie>=2){
+			for(int i =sommetVisite.size()-1; i>index; i--)
+				sommetVisite.remove(i);
+			
+			/*for(int i =0; i<sommetVisite.size(); i++)
+				System.out.print(sommetVisite.get(i).getNom() + " ");*/
+		}
+		
+		/*if(cycleDeSortie>=2){
+		System.out.println();
+	
+		System.out.println();
+		for(int i =0; i<sommetVisite.size(); i++)
+			System.out.print(sommetVisite.get(i).getNom() + " ");
+		System.out.println();
+		}*/
+			
+
+
+	}
 
 	/** Incrementer le nombre de sommets seulement s'i le sommet n'est pas déja dans le Array */
 	public boolean IncrementerSommetParcouru(Sommet s){
@@ -291,7 +357,7 @@ public class Graphe {
 		}
 		return true;
 	}*/
-	
+
 	/** Méthode qui m'indique quel Sommet dans mon graphe contient
 	 * le même nom qu'une arrete
 	 */

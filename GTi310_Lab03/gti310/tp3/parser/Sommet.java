@@ -1,5 +1,7 @@
 package gti310.tp3.parser;
 
+import gti310.tp3.solver.Graphe;
+
 import java.util.ArrayList;
 
 public class Sommet {
@@ -19,43 +21,57 @@ public class Sommet {
 	public void ajouterArrete(Arrete arrete){
 		listArrete.add(arrete);
 	}
-	
+
 	/** Retourne la plus courte arrete d'un sommet*/
-	public int plusPetitPoids(){
+	public int plusPetitPoids(boolean goBack){
 		int index = -1;
 		float coutMinimum = (float)Double.POSITIVE_INFINITY;
-		
-		for(int i = 0; i < listArrete.size(); i++){
-			
-			if(listArrete.get(i).getCout() < coutMinimum){
-				coutMinimum = listArrete.get(i).getCout();
-				index = i;
+
+		if(goBack){//Si on veut retourner au point de depart
+			for(int i = 0; i < listArrete.size(); i++){
+
+				if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(Graphe.sommetDeDepart)){//Si on trouve le semmet de depart on direct
+					index = i;
+					i = listArrete.size() + 1;//Sort 
+				}else if(listArrete.get(i).getCout() < coutMinimum){
+					coutMinimum = listArrete.get(i).getCout();
+					index = i;
+				}
+			}
+		}else{
+			for(int i = 0; i < listArrete.size(); i++){
+
+				if(listArrete.get(i).getCout() < coutMinimum && !listArrete.get(i).getSommetArrive().equalsIgnoreCase(Graphe.sommetDeDepart)){
+					coutMinimum = listArrete.get(i).getCout();
+					index = i;
+				}
 			}
 		}
+
 		return index;
 	}
-	
+
 	/** Update un arrete dans les 2 sens(si applicable)*/
 	public void setCoutUnirectionnel(Arrete destination){
 		//Update la direction courante
 		for(int i = 0; i < listArrete.size(); i++){
 			if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(destination.getSommetArrive())){
-				float cout = (listArrete.get(i).getCout()+listArrete.get(i).getCout())*2;
+				float cout = (listArrete.get(i).getCout()+listArrete.get(i).getCout())*1;
 				listArrete.get(i).setCout(cout);
 			}
 		}
 	}
-	
+
 	/** Méthode qui indique le prochain arrete a visiter */
 	/*public int getNextArrete(){
 		int n = getListArrete().size();
 		int c = 0;
-		
+
 		for(int i =0; i<getListArrete().size(); i++){
 			if(getListArrete().get(i).getCmbVisite() == 0){//Prendre le premier arrete 
 				return i;
 			}else if(){
-				
+
 			}
 		}
 	}*/
@@ -97,9 +113,9 @@ public class Sommet {
 		this.arretesDoiventEtreVisite = arretesDoiventEtreVisite;
 	}*/
 
-	
-	
-	
+
+
+
 
 
 }
