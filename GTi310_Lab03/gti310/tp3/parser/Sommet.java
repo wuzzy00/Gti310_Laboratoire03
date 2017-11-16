@@ -20,6 +20,32 @@ public class Sommet {
 		listArrete.add(arrete);
 	}
 	
+	/** Retourne la plus courte arrete d'un sommet*/
+	public int plusPetitPoids(){
+		int index = -1;
+		float coutMinimum = (float)Double.POSITIVE_INFINITY;
+		
+		for(int i = 0; i < listArrete.size(); i++){
+			
+			if(listArrete.get(i).getCout() < coutMinimum){
+				coutMinimum = listArrete.get(i).getCout();
+				index = i;
+			}
+		}
+		return index;
+	}
+	
+	/** Update un arrete dans les 2 sens(si applicable)*/
+	public void setCoutUnirectionnel(Arrete destination){
+		//Update la direction courante
+		for(int i = 0; i < listArrete.size(); i++){
+			if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(destination.getSommetArrive())){
+				float cout = (listArrete.get(i).getCout()+listArrete.get(i).getCout())*2;
+				listArrete.get(i).setCout(cout);
+			}
+		}
+	}
+	
 	/** Méthode qui indique le prochain arrete a visiter */
 	/*public int getNextArrete(){
 		int n = getListArrete().size();

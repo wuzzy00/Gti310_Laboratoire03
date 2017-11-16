@@ -13,7 +13,7 @@ public class Graphe {
 
 	private ArrayList<String> resultats = new ArrayList<String>();//ArrayList contenant les chaines de resultats
 	private boolean initResultats = true;
-	
+
 	private ArrayList<String> cChemin = new ArrayList<String>();
 	//private StringBuilder cChemin = new StringBuilder();
 	//private String cChemin = "";
@@ -38,10 +38,10 @@ public class Graphe {
 			sommetArrive = maze.getMazeLine().get(i).getDestination();
 
 			//Garder tout les couts à 0 pour permettre de visiter tout les noeuds
-			//cout = maze.getMazeLine().get(i).getweight();
+			cout = maze.getMazeLine().get(i).getweight();
 
 			tmpSommet = new Sommet(sommetDepart);
-			tmpArrete = new Arrete(cout, new Sommet(sommetArrive));
+			tmpArrete = new Arrete(cout, sommetArrive/*new Sommet(sommetArrive)*/);
 
 			//Ajouter le tout premier Sommet de mon graphe
 			if(initGraphe){
@@ -97,11 +97,11 @@ public class Graphe {
 		explorer(depart);
 		//Afficher tout les chemins que j'ai
 		//showResultats();
-		
+
 		//for(int i =0; i<sommetVisite.size(); i++){
-			//System.out.print(sommetVisite.get(i).getNom() + "->");
+		//System.out.print(sommetVisite.get(i).getNom() + "->");
 		//}
-		
+
 		for(int i =0; i<cChemin.size(); i++)
 			System.out.println(cChemin.get(i));
 		//System.out.println( " " + graphe.size() + " : " + nbSommetParcouru );
@@ -110,9 +110,64 @@ public class Graphe {
 		//for(int i = 0; i<graphe.size(); i++)
 		//System.out.println(graphe.get(i).getNom() + " :: " + graphe.get(i).getListArrete().size());
 	}
+	
+	/***/
+	public void explorer(Sommet s){
+		Arrete aDestination;
+		int index,idxSource;
+		Sommet tmpSommet;
+		boolean notInArray;
+		
+		//for(int i =0; i<sommetVisite.size(); i++){
+			//if(sommetVisite.g)
+		//}
+		
+		if(!sommetVisite.contains(s)){
+			nbSommetParcouru++;
+			
+		}
+			
+		sommetVisite.add(s);
+		System.out.print(s.getNom() + " ");
+		
+		if(nbSommetParcouru == graphe.size())
+			System.out.println();
+		
+		
+		index = s.plusPetitPoids();// l'index d'arrete à prendre
+		String NomSomm = s.getListArrete().get(index).getSommetArrive();//Nom du sommet d'arriver à prendre
+		
+		idxSource = getIndexGrapheSommetFromName(s.getNom());
+		//idxDestination = getIndexGrapheSommetFromName(NomSomm);//l'index dans le graphe à partir du nom de sommet
+		
+		//Ajuster le sens courant
+		aDestination = graphe.get(idxSource).getListArrete().get(index);
+		graphe.get(idxSource).setCoutUnirectionnel(aDestination);
+		
+		//Ajuster le sens inverse
+		idxSource = getIndexGrapheSommetFromName(NomSomm);
+		int nInd = -1;
+		for(int i =0; i<graphe.get(idxSource).getListArrete().size(); i++){
+			if(graphe.get(idxSource).getListArrete().get(i).getSommetArrive().equalsIgnoreCase(s.getNom()))
+				nInd = i;
+		}
+		
+		
+		//idxDestination = getIndexGrapheSommetFromName(s.getNom());
+		
+		if(idxSource != -1 && nInd != -1){
+			aDestination = graphe.get(idxSource).getListArrete().get(nInd);
+			graphe.get(idxSource).setCoutUnirectionnel(aDestination);
+		}
+		
+		tmpSommet = graphe.get(idxSource);
+		s = tmpSommet;
+		explorer(s);
+		
+	}
 
 	//sommetVisite  completementVisite
-	public void explorer(Sommet s){
+	/*public void explorer(Sommet s){
 		int k;//index du graphe qui contient le sommet d'une arrete
 
 		if(initResultats){
@@ -144,7 +199,7 @@ public class Graphe {
 			//Variable qui m'indique si toute les arrête d'un sommet son visité
 			//boolean toutVisite = ToutLesArreteDunSommetSontVisiter(s); //Pas utiliser for now
 
-			if(s.getNom().equalsIgnoreCase("11"))
+			if(s.getNom().equalsIgnoreCase("10"))
 			System.out.println();
 			if(culDeSac){//Cul de sac sans possibilité de recul(flèche double sens)
 				System.out.println("Cul de sac, nom géré" + s.getNom());
@@ -153,14 +208,14 @@ public class Graphe {
 				for(int j=0; j<sommetVisite.size(); j++){//Construire la String à ajouter dans ma liste de retours
 					tmp += j== (sommetVisite.size()-1) ? sommetVisite.get(j).getNom() : (sommetVisite.get(j).getNom() + "->");
 				}
-				
+
 				//Reset les valeurs
 				nbSommetParcouru = 0;
 				initResultats = true;
-				
+
 				cChemin.add(tmp);
 				//System.out.println("DONE");
-			}else if(nbSommetParcouru <= graphe.size()-1 && contientS==true && s.getListArrete().size() == 1){//Arrete pas visiter, mais on BacPédale Retourne sur le dernier sommet
+			}else if(nbSommetParcouru < graphe.size() && contientS==true && s.getListArrete().size() == 1){//Arrete pas visiter, mais on BacPédale Retourne sur le dernier sommet
 				graphe.get(k).setVisite(true);
 				graphe.get(k).getListArrete().get(i).getSommetArrive().setVisite(true);
 
@@ -184,9 +239,22 @@ public class Graphe {
 				boolean aEteIncrementer = IncrementerSommetParcouru(s);
 				//System.out.println("Second : " + nbSommetParcouru + s.getNom());
 				explorer(s);
-			}else if(nbSommetParcouru < graphe.size()-1 && i == s.getListArrete().size()-1 && ArreteVisite == false && contientS==true ){
+			}else if(nbSommetParcouru < graphe.size()-1 && ArreteVisite == false && contientS==true ){
 				graphe.get(k).setVisite(true);
-				System.out.println(s.getNom() + " , " + graphe.get(k).getListArrete().get(i).getSommetArrive().getNom());
+				graphe.get(k).getListArrete().get(i).getSommetArrive().setVisite(true);
+
+				s = graphe.get(k).getListArrete().get(i).getSommetArrive();
+				sommetVisite.add(s);
+
+				k = getSommetFromArrete(s);
+				s = graphe.get(k);
+
+				boolean aEteIncrementer = IncrementerSommetParcouru(s);
+				explorer(s);
+
+				//System.out.println(s.getNom() + " , " + graphe.get(k).getListArrete().get(i).getSommetArrive().getNom());
+			}else{
+				System.out.println(s.getNom() + " , " + graphe.get(k).getListArrete().get(i).getSommetArrive().getNom() + " :: " + nbSommetParcouru);
 			}
 
 		}
@@ -195,7 +263,7 @@ public class Graphe {
 
 		//return null;
 	}
-
+	 */
 
 
 	/** Incrementer le nombre de sommets seulement s'i le sommet n'est pas déja dans le Array */
@@ -223,6 +291,17 @@ public class Graphe {
 		}
 		return true;
 	}*/
+	
+	/** Méthode qui m'indique quel Sommet dans mon graphe contient
+	 * le même nom qu'une arrete
+	 */
+	public int getIndexGrapheSommetFromName(String s){
+		for(int j =0; j<graphe.size(); j++){
+			if(graphe.get(j).getNom().equalsIgnoreCase(s))
+				return j;
+		}
+		return -1;
+	}
 
 	/** Méthode qui m'indique quel Sommet dans mon graphe contient
 	 * le même nom qu'une arrete
@@ -271,7 +350,8 @@ public class Graphe {
 		for(int i =0; i<graphe.size(); i++){
 			chaine += "Origine : " + graphe.get(i).getNom() + "\n";
 			for(int j = 0; j<graphe.get(i).getListArrete().size(); j++){
-				chaine += " Poids (" + graphe.get(i).getListArrete().get(j).getCout() + ") Destination :" + graphe.get(i).getListArrete().get(j).getSommetArrive().getNom() + "\n";
+				//chaine += " Poids (" + graphe.get(i).getListArrete().get(j).getCout() + ") Destination :" + graphe.get(i).getListArrete().get(j).getSommetArrive().getNom() + "\n";
+				chaine += " Poids (" + graphe.get(i).getListArrete().get(j).getCout() + ") Destination :" + graphe.get(i).getListArrete().get(j).getSommetArrive() + "\n";
 			}
 		}
 

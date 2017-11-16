@@ -3,13 +3,13 @@ package gti310.tp3.parser;
 public class Arrete {
 
 	private float cout;
-	private Sommet sommetArrive;
+	private String sommetArrive;
 	//private int cmbVisite = 0; //Variable qui m'indique cmb de fois une arrete a été visité
 	
 	public Arrete(){}
 	
 	/** Initialiser une arrete, cout + destination*/
-	public Arrete(float cout, Sommet sommetArrive){
+	public Arrete(float cout, String sommetArrive){
 		this.cout = cout;
 		this.sommetArrive = sommetArrive;
 	}
@@ -22,10 +22,10 @@ public class Arrete {
 		this.cout = cout;
 	}
 
-	public Sommet getSommetArrive() {
+	public String getSommetArrive() {
 		return sommetArrive;
 	}
-	public void setSommetArrive(Sommet sommetArrive) {
+	public void setSommetArrive(String sommetArrive) {
 		this.sommetArrive = sommetArrive;
 	}
 
