@@ -1,5 +1,7 @@
 package gti310.tp3.writer;
 
+import java.util.ArrayList;
+
 /**
  * The Writer interface defines a method to write user-defined objects to file.
  * The classes implementing the Writer interface should explicitaly define the
@@ -24,5 +26,5 @@ public interface Writer<T> {
 	 * @param filename The complete path to the file that will be created.
 	 * @param output The data which will be written to the file.
 	 */
-	void write(String filename, T output);
+	void write(String filename,  ArrayList<String>[] output);
 }
