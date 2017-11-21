@@ -18,7 +18,9 @@ public class ConcreteParser implements Parser{
 
 	/** Variable de classes */
 	private Maze maze = null;
-
+/**
+ * Complexite : O(N)
+ */
 	@SuppressWarnings("resource")
 	public Object parse(String filename) throws IOException {
 		FileReader fRead = new FileReader(filename);

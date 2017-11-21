@@ -23,6 +23,7 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 
 	/** Méthode qui sert à créer mon Graphe Avec l'objet Maze 
 	 * @param object Maze contenant les lignes du graphe
+	 * Complexite O(6N^2)
 	 * */
 	@SuppressWarnings("unchecked")
 	public T solve(E input) {
@@ -78,7 +79,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 		return (T) resultats;
 	}
 	
-	/** Méthode qui parcour le nombre de sommet du graphe*/
+	/** Méthode qui parcour le nombre de sommet du graphe
+	 * Complexiter O(N)
+	 */
 	public void ResoudreGraphe(){
 
 		for(int i =0; i<graphe.size(); i++){//Appeller la fonction à partir de tout les Sommet de la file
@@ -93,7 +96,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 	}
 
 	/** Méthode principale, explorer le graphe de maniere récursive 
-	 * @param sommet à partir duquel ont commence l'exploration*/
+	 * @param sommet à partir duquel ont commence l'exploration
+	 * Complexite: O(N^2)
+	 */
 	public void explorer(Sommet s){
 		Arrete aDestination;
 		int index,idxSource;
@@ -182,7 +187,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 
 	/** Arranger la String de data quand on veut retourner au point de depart 
 	 * @param nom de sommet rechercher
-	 * @param index à partir duquel on cherche dans le tableau*/
+	 * @param index à partir duquel on cherche dans le tableau
+	 * Complexite : O(N^2)
+	 */
 	public void fixExplorer(String nom, int indexDeVerification){
 
 		boolean premierIndex = true;
@@ -215,7 +222,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 		}
 	}
 
-	/** Réinitialiser le poids des arrêtes */
+	/** Réinitialiser le poids des arrêtes 
+	 * Complexite O(N^2)
+	 */
 	public void ResetGrapheWeight(){
 		for(int i =0; i<graphe.size(); i++){
 
@@ -225,14 +234,18 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 		}
 	}
 
-	/** Réinitialiser les sommets visité */
+	/** Réinitialiser les sommets visité 
+	 * Complexite O(N)
+	 */
 	public void ResetGrapheVisite(){
 		for(int i =0; i<graphe.size(); i++){
 				graphe.get(i).setVisite(false);
 		}
 	}
 
-	/** Méthode qui réinitialise les valeurs de départ */
+	/** Méthode qui réinitialise les valeurs de départ 
+	 * Complexite O(1)
+	 */
 	public void ResetInitVars(){
 		sommetVisite.clear();
 		retournerAuDepart = false;
@@ -240,7 +253,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 		nbSommetParcouru = 0;
 	}
 
-	/** Incrementer le nombre de sommets seulement s'i le sommet n'est pas déja dans le Array */
+	/** Incrementer le nombre de sommets seulement s'i le sommet n'est pas déja dans le Array 
+	 * Complexite O(1)
+	 */
 	public boolean IncrementerSommetParcouru(Sommet s){
 		if(!sommetVisite.contains(s)){
 			nbSommetParcouru++;
@@ -249,7 +264,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 			return false;
 	}
 
-	/**Méthode qui m'indique si tout les sommets de mon graphe on été Explorer*/
+	/**Méthode qui m'indique si tout les sommets de mon graphe on été Explorer
+	* Complexite O(1)
+	 * */
 	public boolean ToutLesSommetsSonPartiellementExplorer(){
 		if(nbSommetParcouru == graphe.size())
 			return true;
@@ -271,6 +288,7 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 	/** Méthode qui m'indique quel Sommet dans mon graphe contient
 	 * le même nom qu'une arrete
 	 * @param Sommet à partir duquel on veut l'index
+	 *  Complexite O(N)
 	 */
 	public int getSommetFromArrete(Sommet s){
 		for(int j =0; j<graphe.size(); j++){
@@ -282,7 +300,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 
 	/** Méthode qui m'indique si un array possède un Sommet x 
 	 * @param ArrayList avec lequel on effectue la recherche 
-	 * @param sommet rechercher*/
+	 * @param sommet rechercher
+	 *  Complexite O(N)
+	 * */
 	public boolean possede(ArrayList<Sommet> tmpGraphe, Sommet x){
 		for(int i =0; i<tmpGraphe.size(); i++){
 			boolean memeNom = tmpGraphe.get(i).getNom().trim().equalsIgnoreCase(x.getNom().trim());
@@ -294,7 +314,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 	}
 
 
-	/** Méthode qui affiche mon array de résultats de chemin parcourue*/
+	/** Méthode qui affiche mon array de résultats de chemin parcourue
+	 *  Complexite O(N) 
+	 */
 	public void showResultats(){
 		for(int i =0; i<resultats.size(); i++){
 			System.out.println(resultats.get(i));
@@ -302,7 +324,9 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 	}
 	
 
-	/** Méthode Servant a afficher le graphe(visuel pour tester) */
+	/** Méthode Servant a afficher le graphe(visuel pour tester) 
+	 * *  Complexite O(N^2)
+	*/
 	public void showGraphe(){
 		String chaine = graphe.size() + " Sommets\n\n";
 

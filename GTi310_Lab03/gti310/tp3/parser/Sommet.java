@@ -26,7 +26,10 @@ public class Sommet {
 		listArrete.add(arrete);
 	}
 
-	/** Retourne la plus courte arrete d'un sommet*/
+	/** Retourne la plus courte arrete d'un sommet
+	 *  Complexite O(2N)
+	 */
+	
 	public int plusPetitPoids(boolean goBack){
 		int index = -1;
 		float coutMinimum = (float)Double.POSITIVE_INFINITY;
@@ -63,7 +66,9 @@ public class Sommet {
 		return index;
 	}
 
-	/** Update un arrete dans les 2 sens(si applicable)*/
+	/** Update un arrete dans les 2 sens(si applicable)
+	 * *  Complexite O(N)
+	 */
 	public void setCoutUnirectionnel(Arrete destination){
 		//Update la direction courante
 		for(int i = 0; i < listArrete.size(); i++){

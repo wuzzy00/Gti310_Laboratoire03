@@ -26,18 +26,15 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String ll = "C:\\Users\\julien\\eclipse-workspace\\Media\\Musee2.txt";
 		ConcreteParser parser = new ConcreteParser();
 		ConcreteSolver<Maze,ArrayList<String>> solver; //T, E
+		ConcreteWriter<ArrayList<String>> writer = new ConcreteWriter<>();
 		ArrayList<String> resultats;
 		try {
-			parser.parse(ll);
+			parser.parse(args[0]);
 			solver = new ConcreteSolver<Maze,ArrayList<String> >();
 			resultats = solver.solve(parser.getMaze());
-			
-			for(int i =0; i<resultats.size(); i++)
-				System.out.println(resultats.get(i));
-			
+			writer.write(args[1], resultats);		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -23,6 +23,7 @@ public class ConcreteWriter<T> implements Writer<T> {
 	
 /**
  * Cette methode permet d'écrire dans le fichier de sortie
+ * complexite : O(N)
  */
 	public void write(String filename, T input) {
 		@SuppressWarnings("unchecked")
