@@ -27,14 +27,17 @@ public class Application {
 	public static void main(String args[]) {
 		String input = args[0];
 		String output = args[1];
-		ConcreteWriter writer = new ConcreteWriter();
-		ArrayList<String>[] test = new ArrayList[3];
-		for(int i = 0 ; i < 3 ; i++) {
-			test[i] = new ArrayList<>();
-			test[i].add("1");
-			test[i].add("2");
-			test[i].add("3");
+		Object obj;
+		ArrayList<String>[] chemin;
+		ConcreteParser parser = new ConcreteParser();
+		try {
+			obj = parser.parse(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		writer.write(output, test);
+	//	chemin = 
+		ConcreteWriter writer = new ConcreteWriter();
+	//	writer.write(output, chemin);
 	}
 }
