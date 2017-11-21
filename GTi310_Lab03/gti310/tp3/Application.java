@@ -32,9 +32,13 @@ public class Application {
 		ArrayList<String> resultats;
 		try {
 			parser.parse(args[0]);
+			if(parser == null) {
 			solver = new ConcreteSolver<Maze,ArrayList<String> >();
 			resultats = solver.solve(parser.getMaze());
-			writer.write(args[1], resultats);		
+			writer.write(args[1], resultats);
+			}else {
+				System.err.println("Fichier Invalide");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
