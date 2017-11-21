@@ -1,5 +1,7 @@
 package gti310.tp3.writer;
 
+import java.util.ArrayList;
+
 /**
  * The Writer interface defines a method to write user-defined objects to file.
  * The classes implementing the Writer interface should explicitaly define the
