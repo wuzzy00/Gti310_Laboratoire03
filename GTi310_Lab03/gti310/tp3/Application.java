@@ -27,13 +27,13 @@ public class Application {
 	 */
 	public static void main(String args[]) {
 		String ll = "C:\\Users\\julien\\eclipse-workspace\\Media\\Musee2.txt";
-		ConcreteParser cp = new ConcreteParser();
-		ConcreteSolver<Maze,ArrayList<String>> cs; //T, E
+		ConcreteParser parser = new ConcreteParser();
+		ConcreteSolver<Maze,ArrayList<String>> solver; //T, E
 		ArrayList<String> resultats;
 		try {
-			cp.parse(ll);
-			cs = new ConcreteSolver<Maze,ArrayList<String> >();
-			resultats = cs.solve(cp.getMaze());
+			parser.parse(ll);
+			solver = new ConcreteSolver<Maze,ArrayList<String> >();
+			resultats = solver.solve(parser.getMaze());
 			
 			for(int i =0; i<resultats.size(); i++)
 				System.out.println(resultats.get(i));
