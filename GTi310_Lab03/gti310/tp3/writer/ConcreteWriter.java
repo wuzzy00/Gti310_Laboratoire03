@@ -37,7 +37,6 @@ public class ConcreteWriter<T> implements Writer<T> {
 					if (i != 0) {
 						writer.newLine();
 					}
-					System.out.println(test.get(i));
 					writer.write(test.get(i));
 				}
 				writer.close();

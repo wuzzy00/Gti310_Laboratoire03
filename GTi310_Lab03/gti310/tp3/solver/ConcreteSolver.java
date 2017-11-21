@@ -74,8 +74,8 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 				}
 			}
 		}
-
 		ResoudreGraphe();
+		resultats = getOnlyOrigin(resultats, sommetDepart);
 		return (T) resultats;
 	}
 	
@@ -338,7 +338,22 @@ public class ConcreteSolver<E, T> implements Solver<E, T>{
 		}
 		System.out.println(chaine);
 	}
-	
+	/**
+	 * Methode qui permet de reourner seuleument les chemins partant de l'origine
+	 * @param notfilter
+	 * @param sommetDepart
+	 * @return ArrayList
+	 * Complexite O(N)
+	 */
+	private ArrayList<String> getOnlyOrigin(ArrayList<String> notfilter , String sommetDepart) {
+		ArrayList<String> filter = new ArrayList<>();
+		for(int i = 0 ; i < notfilter.size() ; i++) {
+			if(notfilter.get(i).startsWith(sommetDepart)){
+				filter.add(notfilter.get(i));
+			}
+		}
+		return filter;
+	}
 	/** Getters and setters */
 	public static ArrayList<Sommet> getGraphe() {
 		return graphe;
