@@ -1,10 +1,12 @@
 package gti310.tp3;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import gti310.tp3.parser.ConcreteParser;
-import gti310.tp3.solver.Factorial;
-import gti310.tp3.solver.Graphe;
+import gti310.tp3.parser.Maze;
+import gti310.tp3.parser.Sommet;
+import gti310.tp3.solver.ConcreteSolver;
 
 /**
  * The Application class defines a template method to call the elements to
@@ -24,29 +26,22 @@ public class Application {
 	 * @param args The array containing the arguments to the files.
 	 */
 	public static void main(String args[]) {
-		String cc = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\Musee.txt" ;
+		String cFile = "C:\\Users\\innoc\\Documents\\School\\Technologie de linformation\\A2017\\GTI310\\Repo\\GTi310_Lab03\\test.txt" ;
 
 		ConcreteParser cp = new ConcreteParser();
-		Graphe fapa = new Graphe();
+		ConcreteSolver<Maze,ArrayList<String>> cs; //T, E
+		ArrayList<String> resultats;
+
 		try {
-			cp.parse(cc);
-			fapa.setGraphe(cp.getMaze());
-			//fapa.showGraphe();
+			cp.parse(cFile);
+			cs = new ConcreteSolver<Maze,ArrayList<String> >();
+			resultats = cs.solve(cp.getMaze());
+			
+			//for(int i =0; i<resultats.size(); i++)
+				//System.out.println(resultats.get(i));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		/*int[] bb = new int[3];
-		int fact = Factorial.factorial(bb.length);
-		
-		for(int i =0; i<bb.length; i ++)//Not needed
-			bb[0] = 0;
-
-		for(int i =0; i < fact; i++){
-			bb[i%bb.length] += 1;
-			System.out.println(bb[0] + " , " + bb[1] + " , " + bb[2] );
-
-		}*/
-
 	}
 }

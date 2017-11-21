@@ -10,18 +10,25 @@ import java.util.ArrayList;
  * @author Innocent Windsor Junior
  */
 public class Maze {
-	
+
 	/** Variable de class */
 	private MazeHeader mazeHeader;
 	private ArrayList<MazeLine> mazeLine;
-	
-	/** Création d'un object Maze*/
+
+	/** Constructeur, Création d'un object Maze
+	 * @param Nombre de sommet
+	 * @param Sommet de depart
+	 */
 	Maze(String nbSommet, String somDepart){
 		mazeHeader = new MazeHeader(nbSommet, somDepart);
 		mazeLine = new ArrayList<MazeLine>();
 	}
-	
-	/** Méthode servant à ajouter des lignes de mazeLine*/
+
+	/** Méthode servant à ajouter des lignes de mazeLine
+	 * @param Source
+	 * @param Destination
+	 * @param poids
+	 */
 	public void addMazeLine(String source, String destination, float weight){
 		mazeLine.add(new MazeLine(source, destination, weight));
 	}
@@ -40,5 +47,5 @@ public class Maze {
 	public void setMazeLine(ArrayList<MazeLine> mazeLine) {
 		this.mazeLine = mazeLine;
 	}
-	
+
 }

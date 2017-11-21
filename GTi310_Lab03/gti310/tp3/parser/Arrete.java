@@ -1,14 +1,22 @@
 package gti310.tp3.parser;
 
+/**
+ * Class representant l'information d'une arrête avec son coût et sa destination
+ * 
+ * @author Innocent Windsor Junior
+ */
 public class Arrete {
 
-	private float cout;
-	private String sommetArrive;
-	//private int cmbVisite = 0; //Variable qui m'indique cmb de fois une arrete a été visité
+	private float cout;//Cout d'une arrête
+	private float coutDefaut;//Cout par default d'une arrete, utiliser pour réinitialiser le cout
+	private String sommetArrive;//Destination de l'arrete
 	
+	/** Contructeur par defaut*/
 	public Arrete(){}
 	
-	/** Initialiser une arrete, cout + destination*/
+	/** Constructeur Initialiser une arrete, cout + destination
+	 * @param cout de l'arrete
+	 * @param Destination*/
 	public Arrete(float cout, String sommetArrive){
 		this.cout = cout;
 		this.sommetArrive = sommetArrive;
@@ -29,11 +37,11 @@ public class Arrete {
 		this.sommetArrive = sommetArrive;
 	}
 
-	/*public int getCmbVisite() {
-		return cmbVisite;
+	public float getCoutDefaut() {
+		return coutDefaut;
 	}
-	public void setCmbVisite(int cmbVisite) {
-		this.cmbVisite = cmbVisite;
-	}*/
+	public void setCoutDefaut(float coutDefaut) {
+		this.coutDefaut = coutDefaut;
+	}
 	
 }

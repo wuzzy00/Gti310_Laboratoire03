@@ -1,15 +1,19 @@
 package gti310.tp3.parser;
 
-import gti310.tp3.solver.Graphe;
+import gti310.tp3.solver.ConcreteSolver;
 
 import java.util.ArrayList;
 
+/**
+ * Class representant l'information d'un sommet avec sa liste d'arrete
+ * 
+ * @author Innocent Windsor Junior
+ */
 public class Sommet {
 
 	private String nom; //pour le nom du sommet... Actuel
 	private ArrayList<Arrete> listArrete = new ArrayList<Arrete>(); //Liste des arrete partant de courant à x
 	private boolean visite;//S'il a ete visite
-	//private int arretesDoiventEtreVisite = 0;//Variable qui m'indique cmb de fois un sommet a été visité
 
 	public Sommet(String nom){
 		this.nom = nom;
@@ -26,22 +30,30 @@ public class Sommet {
 	public int plusPetitPoids(boolean goBack){
 		int index = -1;
 		float coutMinimum = (float)Double.POSITIVE_INFINITY;
+		Sommet depart = ConcreteSolver.getSommetDeDepart();
 
 		if(goBack){//Si on veut retourner au point de depart
 			for(int i = 0; i < listArrete.size(); i++){
-
-				if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(Graphe.sommetDeDepart)){//Si on trouve le semmet de depart on direct
+				if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(depart.getNom())){//Si on trouve le semmet de depart on direct
 					index = i;
 					i = listArrete.size() + 1;//Sort 
 				}else if(listArrete.get(i).getCout() < coutMinimum){
 					coutMinimum = listArrete.get(i).getCout();
 					index = i;
-				}
+				}				
 			}
 		}else{
 			for(int i = 0; i < listArrete.size(); i++){
 
-				if(listArrete.get(i).getCout() < coutMinimum && !listArrete.get(i).getSommetArrive().equalsIgnoreCase(Graphe.sommetDeDepart)){
+				//Prioriser les arretes qui n'ont pas encore été visité
+				if(listArrete.get(i).getCout() < coutMinimum && 
+						!listArrete.get(i).getSommetArrive().equalsIgnoreCase(depart.getNom()) &&
+						!isVisite()){
+					coutMinimum = listArrete.get(i).getCout();
+					index = i;
+					i = listArrete.size()*3;//Sortir de la boucle
+				}else if(listArrete.get(i).getCout() < coutMinimum && 
+						!listArrete.get(i).getSommetArrive().equalsIgnoreCase(depart.getNom())){
 					coutMinimum = listArrete.get(i).getCout();
 					index = i;
 				}
@@ -56,33 +68,19 @@ public class Sommet {
 		//Update la direction courante
 		for(int i = 0; i < listArrete.size(); i++){
 			if(listArrete.get(i).getSommetArrive().equalsIgnoreCase(destination.getSommetArrive())){
-				float cout = (listArrete.get(i).getCout()+listArrete.get(i).getCout())*1;
+				float cout = (listArrete.get(i).getCout()+1);
 				listArrete.get(i).setCout(cout);
 			}
 		}
 	}
 
-	/** Méthode qui indique le prochain arrete a visiter */
-	/*public int getNextArrete(){
-		int n = getListArrete().size();
-		int c = 0;
-
-		for(int i =0; i<getListArrete().size(); i++){
-			if(getListArrete().get(i).getCmbVisite() == 0){//Prendre le premier arrete 
-				return i;
-			}else if(){
-
-			}
-		}
-	}*/
-
 	/** Méthode qui m'indique si le noeud passer en parametre est le parent */
-	/*public boolean isParent(Sommet som){
+	public boolean isParent(Sommet som){
 		if(som.getNom().equalsIgnoreCase(this.getNom()))
 			return true;
 		else
 			return false;
-	}*/
+	}
 
 	/** Getters and setter*/
 	public String getNom() {
@@ -105,17 +103,4 @@ public class Sommet {
 	public void setListArrete(ArrayList<Arrete> listArrete) {
 		this.listArrete = listArrete;
 	}
-
-	/*public int getArretesDoiventEtreVisite() {
-		return arretesDoiventEtreVisite;
-	}
-	public void setArretesDoiventEtreVisite(int arretesDoiventEtreVisite) {
-		this.arretesDoiventEtreVisite = arretesDoiventEtreVisite;
-	}*/
-
-
-
-
-
-
 }

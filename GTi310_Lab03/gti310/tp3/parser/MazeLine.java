@@ -9,13 +9,17 @@ import java.util.LinkedList;
  * @author Innocent Windsor Junior
  */
 public class MazeLine {
-	
+
 	/** Variables de class */
 	private String source;
 	private String destination;
 	private float weight;
-	
-	/** Méthode servant à initialiser un object MazeLine */
+
+	/** Méthode servant à initialiser un object MazeLine 
+	 * @param Source
+	 * @param Destination
+	 * @param poids
+	 */
 	MazeLine(String source, String destination, float weight){
 		this.source = source;
 		this.destination = destination;
